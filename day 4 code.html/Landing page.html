@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Web Page</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+        }
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #0056b3;
+        }
+        main {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+        .content {
+            flex: 3;
+        }
+        .content section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .content article h2 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+        aside {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 3px solid #ccc;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #333;
+            color: white;
+        }
+        </style>
+        
+        
+</head>
+<body>
+    <header>
+        <div>
+            <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFiiAGkInPgs3ae2AcSea89X1-swxSpjUsWGdY5hB33BvLVhxttZGyhKIlTt3BcndAbDesgP6mZ5w-_SqMkWyY1f70WzjmZkTgsR_zMpbZps2lTydl-F5ytYxtvir6rUz2iHHbu=s680-w680-h510-rw" alt="Image not found" width="200">
+            <h2>Bits vizag</h2>
+        </div>
+        <nav>
+            <ul>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-add" viewBox="0 0 16 16">
+  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h4a.5.5 0 1 0 0-1h-4a.5.5 0 0 1-.5-.5V7.207l5-5 6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+  <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 1 0 1 0v-1h1a.5.5 0 1 0 0-1h-1v-1a.5.5 0 0 0-.5-.5"/>
+</svg>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+</svg>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="content">
+            <section id="home">
+                <article>
+                    <h2>Welcome to Our Semantic Page</h2>
+                    <p>This section uses the <code>&lt;section&gt;</code> and <code>&lt;article&gt;</code> tags. Semantic tags clearly describe their meaning in a human- and machine-readable way.</p>
+                </article>
+            </section>
+            <section id="about">
+                <article>
+                    <h2>Why use Semantic HTML?</h2>
+                    <p>It helps with SEO, improves accessibility for screen readers, and makes your code much easier to read and maintain!</p>
+                </article>
+            </section>
+            <section id="contact">
+                <article>
+                    <h2>Contact Us</h2>
+                    <p>Feel free to reach out to us at contact@bitsvizag.com or drop by our campus!</p>
+                </article>
+            </section>
+        </div>
+        <aside>
+            <h3>Related Links</h3>
+            <ul>
+                <li><a href="Profile.html">View Profile</a></li>
+                <li><a href="Anchor.html">Anchor Tags</a></li>
+            </ul>
+        </aside>
+    </main>
+    <footer>
+        <p>&copy; 2026 Bits vizag. All rights reserved.</p>
+    </footer>
+</body>
+</html>
