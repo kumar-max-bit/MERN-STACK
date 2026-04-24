@@ -1,6 +1,2 @@
 *.mp3
 *.mp4
-node_modules/
-.env
-build/
-dist/
