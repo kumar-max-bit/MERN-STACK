@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /*adajcent sibling selector::used to select  adjacent element*/
+       ol+h1{
+           color:red;
+           background-color: lightcoral;
+        }
+        /*decendant selector::used to select the element which is descendant of another element*/
+      ul p{
+            color:blue;
+            background-color: lightblue;    
+        }
+         /*child selector::used to select the element which is direct child of another element*/
+        h4>p{
+            background-color: lightsalmon;
+            color: black
+        }
+        /*Child selector::used to select the element which is direct child of another element*/
+        ol>li{
+            background-color: lime;
+        }
+        
+       ol~h1{
+              color:darkmagenta;
+              background-color:whitesmoke;
+       }
+
+
+    </style>
+</head>
+<body>
+    <h1>Order list</h1>
+    <ol>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+       
+    </ol>
+    <h1>Unordered list</h1>
+    <ul>
+        <li><p>this paragraph present in here</p></li>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        
+    </ul>
+    <h1>Heading in third position</h1>
+    <h3>
+       <h4>
+       <p>Heading 4</p> 
+       </h4>
+    </h3>
+    
+</body>
+</html>
