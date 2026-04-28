@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        h1::after{
+            content: " Class";
+            color: red;
+        }
+        label::after{
+            content: " *";
+            color:blue; 
+        }
+        #Heading::before{
+            content: "Hello ";
+            color: green;
+        }
+        label:last-of-type::before{
+            content: "📩";
+            color: orange;
+        }
+        label:first-of-type::before{
+            content: "👤";
+            color: orange;
+        }
+        h2::first-letter{
+            color:darkblue;
+            font-style: italic;
+            font-size: 50px;
+            text-shadow: 2px 2px 5px black;
+        }
+        p::first-line{
+            font-size: 20px;
+            line-height: 1.5;
+            color: yellow;
+        }
+        p{
+            font-size: 20px0px;
+            color: red;
+            font-weight: bold;
+        }
+        li:first-child::marker{
+            content:"👉";
+        }
+        li:nth-child(2)::marker{
+            content:"✌️";
+        }
+        li:nth-child(3)::marker{
+            content:"👌";
+        }
+            li:last-child::marker{
+                content:"👊";
+            }
+            div::selection{
+                background-color: yellow;
+                color: green;
+            }
+            p::selection{
+                background-color: darkcyan;
+                color: white;
+            }
+            input::placeholder{
+                color: salmon;
+                font-style: italic;
+                font-weight:bold;
+            }
+     </style>
+</head>
+<body>
+    <h1 id="Heading">Welcome to day 6</h1>
+    <form actoin="">
+        <fieldset>
+            
+            <h2>Registration Form</h2>
+            <label for="">First Name</label>
+            <input type="text" placeholder="Enter Your Name">
+            <br><br>
+            <label for="">Email</label>
+            <input type="email" placeholder="Enter Your Email">
+            </fieldset>
+    </form>
+    <ol>
+        <li>First Item</li>
+        <li>Second Item</li>
+        <li>Third Item</li>
+        <li>Fourth Item</li>
+    </ol>
+
+    <p>
+       nfisigdfbhgsd jhuyguih hbgiugbhguihgher jvbvdfhfvjb herugeeb hguregueegbhebge
+       fugufuergygeggeyte jhbuegyer hbfygeb feuygue ufgyegfuer eyufuyeggjherbeyguyygfn g
+       bfguygfjheufhe yufUEGS   AhwqbXE WDWYCERB Y5Y7 D51   TFB4HWBVFW RF3NT4 HWYT
+       SMUTD TS FD2F NUDGHIHGUIIGjdg ghgierrghghgigr ggjg ndggg'
+    </p>
+    <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui rem consequuntur maxime voluptatibus explicabo a. Neque voluptatibus eum blanditiis nulla voluptate enim est provident accusantium quos? Voluptatem officiis repellendus atque?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam mollitia nam quasi voluptas tempora, voluptatum dicta aliquam deleniti, unde voluptatem aliquid veritatis fugit architecto fuga? Mollitia incidunt qui suscipit nesciunt.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus accusantium placeat maxime, velit minus, fugiat totam dolore optio aliquid officia magni consequatur recusandae quam aspernatur cum dolorum? Pariatur, est libero.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi sequi dolorum mollitia possimus nihil iusto eos officiis numquam, aspernatur similique qui facere accusantium aliquid exercitationem. Necessitatibus laboriosam iure magni quidem.
+    </div>
+</body>
+</html> 
