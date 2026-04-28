@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            overflow-x: hidden;
+        }
+        nav{
+            position: sticky;
+            top:0 !important;
+            z-index:10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        ol {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            align-items: center;
+            flex-direction: row;
+            list-style: none;
+            padding: 15px 0;
+        }
+
+        li {
+            color: #333;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeInRight 0.5s ease-out backwards;
+        }
+
+        ol li:nth-child(1) { animation-delay: 0.1s; }
+        ol li:nth-child(2) { animation-delay: 0.2s; }
+        ol li:nth-child(3) { animation-delay: 0.3s; }
+        ol li:nth-child(4) { animation-delay: 0.4s; }
+        ol li:nth-child(5) { animation-delay: 0.5s; }
+        
+        li:hover {
+            background-color: #007bff;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        video {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #electronic-devices {
+            display: grid;
+            grid-template-columns: repeat(3, 320px);
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 0;
+            position: relative;
+            margin-top: -80px;
+            backdrop-filter: blur(5px);
+            z-index: 5;
+        }
+
+        #electronic-devices > div {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        #electronic-devices > div:nth-child(1) { animation-delay: 0.1s; }
+        #electronic-devices > div:nth-child(2) { animation-delay: 0.2s; }
+        #electronic-devices > div:nth-child(3) { animation-delay: 0.3s; }
+        #electronic-devices > div:nth-child(4) { animation-delay: 0.4s; }
+        #electronic-devices > div:nth-child(5) { animation-delay: 0.5s; }
+        #electronic-devices > div:nth-child(6) { animation-delay: 0.6s; }
+
+        #electronic-devices > div:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #electronic-devices img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            background-color: #fff;
+            padding: 10px;
+            transition: transform 0.4s ease;
+        }
+        
+        #electronic-devices > div:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 15px;
+            flex-grow: 1;
+            font-family: sans-serif;
+        }
+
+        .product-info h4 {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .product-info p {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+            gap: 10px;
+        }
+
+        .btn-container button {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-container button::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-container button:hover::after {
+            left: 150%;
+        }
+
+        .btn-container button:nth-child(1) {
+            background: linear-gradient(45deg, #ff9900, #ffb84d);
+            color: white;
+        }
+
+        .btn-container button:nth-child(1):hover {
+            background-color: #e68a00;
+            transform: scale(1.05);
+        }
+
+        .btn-container button:nth-child(2) {
+            background: linear-gradient(45deg, #ffd814, #ffe666);
+            color: black;
+        }
+
+        .btn-container button:nth-child(2):hover {
+            background-color: #f7ce00;
+            transform: scale(1.05);
+        }
+
+        h1 {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            font-size: 3.5rem;
+            text-align: center;
+            animation: pulseGlow 3s infinite alternate;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulseGlow {
+            from { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); }
+            to { box-shadow: 0 8px 32px rgba(255, 255, 255, 0.4); text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.8); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ol>
+            <li>HOME</li>
+            <li>ABOUT</li>
+            <li>CONTACT</li>
+            <li>HELP</li>
+            <li>LOGIN</li>
+        </ol>
+    </nav>
+    <main>
+        <section id="background-video">
+            <video autoplay muted loop width="100%" height="100%">
+                <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <section>
+            <h1>Welcome to Alpha Mart</h1>
+        </section>
+        <section id="electronic-devices">
+            <div>
+                <img src="https://m.media-amazon.com/images/I/71ZBa5+qu4L._AC_UY218_.jpg" alt="Laptop">
+                <div class="product-info">
+                    <h4>Name: Gaming Laptop</h4>
+                    <h4>Price: ₹65,000</h4>
+                    <h4>Rating: ⭐⭐⭐⭐⭐ (4.7)</h4>
+                    <p>Description: This is a high-performance laptop suitable for gaming and professional work.</p>
+                </div>
+                <div class="btn-container">
+                    <button>Buy Now</button>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            <div>
+                <img src="https://m.media-amazon.com/images/I/612-vlQTfyL._SL1500_.jpg" alt="Smartphone">
+                <div class="product-info">
+                    <h4>Name: Smartphone</h4>
+                    <h4>Price: ₹25,000</h4>
+                    <h4>Rating: ⭐⭐⭐⭐☆ (4.2)</h4>
+                    <p>Description: Latest 5G smartphone with an ultra-clear camera and all-day battery life.</p>
+                </div>
+                <div class="btn-container">
+                    <button>Buy Now</button>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            <div>
+                <img src="https://m.media-amazon.com/images/I/71PdaCws72L._SL1500_.jpg" alt="Headphones">
+                <div class="product-info">
+                    <h4>Name: Wireless Headphones</h4>
+                    <h4>Price: ₹3,500</h4>
+                    <h4>Rating: ⭐⭐⭐⭐⭐ (4.8)</h4>
+                    <p>Description: Noise-canceling over-ear headphones with deep bass and 30-hour playtime.</p>
+                </div>
+                <div class="btn-container">
+                    <button>Buy Now</button>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            <div>
+                <img src="https://m.media-amazon.com/images/I/61ZjlBOp+rL._AC_UY218_.jpg" alt="Smartwatch">
+                <div class="product-info">
+                    <h4>Name: Smartwatch Pro</h4>
+                    <h4>Price: ₹4,999</h4>
+                    <h4>Rating: ⭐⭐⭐⭐☆ (4.0)</h4>
+                    <p>Description: Keep track of your fitness goals, heart rate, and notifications on the go.</p>
+                </div>
+                <div class="btn-container">
+                    <button>Buy Now</button>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            <div>
+                <img src="https://m.media-amazon.com/images/I/71VbHaAqbML._AC_UY218_.jpg" alt="Tablet">
+                <div class="product-info">
+                    <h4>Name: Ultra Tablet 10"</h4>
+                    <h4>Price: ₹18,500</h4>
+                    <h4>Rating: ⭐⭐⭐⭐⭐ (4.6)</h4>
+                    <p>Description: Perfect for reading, gaming, and watching movies with a stunning HD display.</p>
+                </div>
+                <div class="btn-container">
+                    <button>Buy Now</button>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+            <div>
+                <img src="https://m.media-amazon.com/images/I/81Tib6mb8eL._SL1500_.jpg" alt="Camera">
+                <div class="product-info">
+                    <h4>Name: DSLR Camera</h4>
+                    <h4>Price: ₹45,000</h4>
+                    <h4>Rating: ⭐⭐⭐⭐☆ (4.4)</h4>
+                    <p>Description: Capture professional quality photos and 4K videos with this versatile DSLR.</p>
+                </div>
+                <div class="btn-container">
+                    <button>Buy Now</button>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
