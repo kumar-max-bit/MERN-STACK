@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+    <script>
+        let b1=document.getElementById("body");
+        let t1=document.createElement("table");
+        let tr1=document.createElement("tr");
+        let tr2=document.createElement("tr");
+
+        let td1=document.createElement("td");
+        let td2=document.createElement("td");
+        let td3=document.createElement("td");
+        let td4=document.createElement("td");
+        
+        t1.appendChild(tr1);
+        t1.appendChild(tr2);
+        
+        tr1.appendChild(td1);
+        tr1.appendChild(td2);
+        tr2.appendChild(td3);
+        tr2.appendChild(td4);
+
+        td1.innerHTML="<img height='100' width='100' src='https://images.stockcake.com/public/6/e/d/6ede0efa-08d9-4d05-9c37-902ddda4e8fe_large/professional-software-developer-stockcake.jpg' alt='w3schools logo'>";
+        td2.innerHTML="<h1>Dale</h1>";
+        td3.innerText="102";
+        td4.innerText="CSE";
+
+        t1.border=1;
+        t1.cellSpacing=0;
+        t1.cellPadding=10;
+        b1.appendChild(t1);
+        console.log(t1);
+
+    </script>
+</body>
+</html>
