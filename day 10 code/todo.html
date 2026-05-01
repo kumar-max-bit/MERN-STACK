@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 50px;
+            align-items: center;
+        }
+        table{
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+  <div>
+      <input type="text" id="productName" placeholder="Product Name">
+    <input type="url" id="url" placeholder="Image URL">
+    <input type="number" id="price" placeholder="Enter Price">
+    <button type="button" onclick="addProduct()">Add Product</button>
+
+  </div>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+
+
+        let tbody = document.querySelector("tbody");
+        let allProducts = []
+        function addProduct() {
+            let productName = document.getElementById("productName").value;
+            let url = document.getElementById("url").value;
+            let productPrice = document.getElementById("price").value;
+            let productDetails = {
+                Name: productName,
+                Price: productPrice,
+                Image: url
+            }
+            allProducts.push(JSON.stringify(productDetails));
+            // allProducts.forEach((product) => {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                let td2 = document.createElement('td')
+                let td3 = document.createElement('td')
+                let td4 = document.createElement('td')
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+                td1.innerText = productName;
+                td2.innerText = productPrice;
+                td3.innerHTML = `<img src='${url}' height="50px" width="50px"/>`
+                td4.innerHTML=`<button>Edit </button> <button>Delete </button>`
+                tbody.appendChild(tr)
+
+               localStorage.setItem( "products",allProducts) ;
+                
+            // })
+        }
+
+
+    </script>
+</body>
+
+</html>

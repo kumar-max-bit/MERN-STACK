@@ -13,13 +13,17 @@
             flex-direction: column;
             align-items: center;
         }
-    </style>[]
+        thead {
+            background-color: red;
+        }
+    </style>
+
 </head>
 <body>
     <h1>Emp Details</h1>
     <input type="search" placeholder="search here">
     <table border="1" cellpadding="10" cellspacing="0">
-        <thead bgcolor="red">
+        <thead>
             <tr>
                 <th>name</th>
                 <th>role</th>
@@ -30,36 +34,60 @@
         </thead>
         <tbody>
             <tr>
-                <th>ravi</th>
-                <th>developer</th>
-                <th>616564</th>
-                <th>guntur</th>
-                <th>9848547685</th>
+                <td>ravi</td>
+                <td>developer</td>
+                <td>616564</td>
+                <td>guntur</td>
+                <td>9848547685</td>
             </tr>
             <tr>
-                <th>ram</th>
-                <th>analyst</th>
-                <th>516464</th>
-                <th>vizag</th>
-                <th>6305245784</th>
+                <td>ram</td>
+                <td>analyst</td>
+                <td>516464</td>
+                <td>vizag</td>
+                <td>6305245784</td>
             </tr>
             <tr>
-                <th>raju</th>
-                <th>designer</th>
-                <th>5616131</th>
-                <th>vijayawada</th>
-                <th>7025489542</th>
+                <td>raju</td>
+                <td>designer</td>
+                <td>5616131</td>
+                <td>vijayawada</td>
+                <td>7025489542</td>
             </tr>
             <tr>
-                <th>raju</th>
-                <th>designer</th>
-                <th>5616131</th>
-                <th>vijayawada</th>
-                <th>7025489542</th>
+                <td>raju</td>
+                <td>designer</td>
+                <td>5616131</td>
+                <td>vijayawada</td>
+                <td>7025489542</td>
             </tr>
         </tbody>
         
         
     </table>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic odit, nihil quisquam similique ipsum eveniet nobis earum sequi animi cum alias laboriosam nisi reprehenderit totam placeat culpa eum distinctio. Necessitatibus?</p>
+    <button onclick="disappearParagraph()">Click Here </button>
+   <script>
+    function disappearParagraph(){
+        let para = document.querySelector("p");
+        para.style.display = (para.style.display === "none") ? "block" : "none";
+    }
+        let rows = document.querySelectorAll("tbody tr");
+        let input = document.querySelector("input");
+        input.addEventListener('keyup', () => {
+            let inputText=input.value.toLowerCase();
+            rows.forEach((row) => {
+                let rowData = row.textContent;
+
+                let result = rowData.toLowerCase().includes(inputText);
+                console.log(result);
+
+                row.style.display = result ? "" : "none"
+            })
+
+
+        })
+   </script>
 </body>
 </html>
+ 
