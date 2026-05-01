@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Auth Demo</title>
+    <!-- Add Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        width: 400px;
+        max-width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .view {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .active-view {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    .input-group {
+        position: relative;
+        margin-bottom: 12px;
+    }
+    .input-group i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #777;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
+        input {
+            width: 100%;
+        padding: 12px 12px 12px 42px; /* Extra left padding for the icon */
+        border: 1px solid #ccc;
+        border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        transition: all 0.3s ease;
+        background-color: #f9f9f9;
+    }
+    input:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
+        outline: none;
+    background-color: #fff;
+        }
+    .input-group:focus-within i {
+        color: #2980b9;
+    }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+        border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        transition: all 0.3s ease;
+        }
+        button:hover {
+            opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+        .btn-submit {
+        background: linear-gradient(135deg, #18bc9c, #2980b9);
+            color: white;
+        }
+        .btn-google {
+        background: linear-gradient(135deg, #ea4335, #c62828);
+            color: white;
+        }
+        .btn-facebook {
+        background: linear-gradient(135deg, #4267B2, #2b457b);
+            color: white;
+        }
+        .social-login {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. Register Page -->
+        <div id="register-page" class="view active-view">
+            <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+            <form id="register-form">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="reg-name" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="reg-email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="reg-phone" placeholder="Phone Number" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" id="reg-address" placeholder="Home Address" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="reg-password" placeholder="Create Password" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-check-circle"></i>
+                <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+            </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-user-check"></i> Sign Up</button>
+            </form>
+            <div class="social-login">
+                <p>Or sign up with</p>
+                <button class="btn-google" onclick="socialLogin('Google')"><i class="fab fa-google"></i> Google</button>
+                <button class="btn-facebook" onclick="socialLogin('Facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+            </div>
+            <p>Already have an account? <a href="#" onclick="switchView('login-page')">Login</a></p>
+        </div>
+
+        <!-- 2. Login Page -->
+        <div id="login-page" class="view">
+            <h2><i class="fas fa-sign-in-alt"></i> Welcome Back</h2>
+            <form id="login-form">
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="log-email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="log-password" placeholder="Password" required>
+            </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-arrow-right"></i> Login</button>
+            </form>
+            <div class="social-login">
+                <p>Or log in with</p>
+                <button class="btn-google" onclick="socialLogin('Google')"><i class="fab fa-google"></i> Google</button>
+                <button class="btn-facebook" onclick="socialLogin('Facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+            </div>
+            <p>Don't have an account? <a href="#" onclick="switchView('register-page')">Register</a></p>
+        </div>
+
+        <!-- 3. Home Page -->
+        <div id="home-page" class="view">
+            <h2><i class="fas fa-home"></i> Dashboard</h2>
+        <p id="user-greeting">You have successfully logged in!</p>
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80" alt="Welcome" style="width: 100%; border-radius: 8px; margin: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+            <p>Welcome to your personal home page.</p>
+        <p id="user-details" style="font-size: 14px; color: #444; text-align: left; background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 4px solid #2980b9; line-height: 1.6;"></p>
+            <button class="btn-google" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Navigation function to switch between pages
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active-view');
+            });
+            document.getElementById(viewId).classList.add('active-view');
+        }
+
+        // Handle User Registration
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            
+            // Save credentials to local storage
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userPassword', password);
+            
+            alert('Registration successful! Please log in.');
+            document.getElementById('register-form').reset();
+            switchView('login-page');
+        });
+
+        // Handle User Login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            const email = document.getElementById('log-email').value;
+            const password = document.getElementById('log-password').value;
+            
+            // Retrieve stored credentials
+            const storedEmail = localStorage.getItem('userEmail');
+            const storedPassword = localStorage.getItem('userPassword');
+            
+            // Verify credentials
+            if(email === storedEmail && password === storedPassword) {
+                document.getElementById('login-form').reset();
+            
+            // Populate User Info on Home Page
+            const storedName = localStorage.getItem('userName') || 'User';
+            const storedPhone = localStorage.getItem('userPhone') || 'N/A';
+            const storedAddress = localStorage.getItem('userAddress') || 'N/A';
+            
+            document.getElementById('user-greeting').innerHTML = '<strong>Welcome back, ' + storedName + '!</strong>';
+            document.getElementById('user-details').innerHTML = 
+                '<b><i class="fas fa-id-card"></i> Your Profile Details:</b><br><br>' +
+                '<i class="fas fa-envelope" style="color: #2980b9; margin-right: 5px;"></i> Email: ' + storedEmail + '<br>' +
+                '<i class="fas fa-phone" style="color: #2980b9; margin-right: 5px;"></i> Phone: ' + storedPhone + '<br>' +
+                '<i class="fas fa-map-marker-alt" style="color: #2980b9; margin-right: 5px;"></i> Address: ' + storedAddress;
+            
+                switchView('home-page');
+            } else {
+                alert('Invalid credentials! Please try again or register.');
+            }
+        });
+
+        // Handle Logout
+        function logout() {
+            switchView('login-page');
+        }
+
+        // Mock function for Social Login
+        function socialLogin(provider) {
+            // In a real scenario, this would redirect to Google/Facebook OAuth API
+            alert('Redirecting to ' + provider + ' authentication...');
+            
+            setTimeout(() => {
+                alert(provider + ' login successful!');
+                switchView('home-page');
+            }, 800); // Wait a short period to mimic an API response
+        }
+    </script>
+</body>
+</html>
