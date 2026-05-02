@@ -1,0 +1,34 @@
+[
+    {
+    "name":"Javafullstack",
+    "duration":"6 months",
+    "fees":"65000",
+    "topics":[
+        "Java Core",
+        "Advanced Java",
+        "Spring Boot",
+        "Hibernate",
+        "Microservices",
+        "React.js",
+        "MySQL"
+       
+    
+    ],
+    "poster":""
+    },
+    {
+        "name":"Python Fullstack",
+        "duration":"6 months",
+        "fees":"60000",
+        "topics":[
+            "Python Core",
+            "Django",
+            "Flask",
+            "REST API",
+            "PostgreSQL",
+            "React.js",
+            "Data Structures"
+        ],
+        "poster":""
+    }
+]

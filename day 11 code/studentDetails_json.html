@@ -1,0 +1,44 @@
+
+    
+
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let JSONdata=[ {
+            "name":"ravi",
+            "rollno":12,
+            "active":true
+        },
+        {
+            "name":"rani",
+            "rollno":34,
+            "active":true
+        },
+        {
+            "name":"teja",
+            "rollno":56,
+            "age":21,
+            "course":"MERN",
+            "active":false,
+            "email":"teja@123",
+            "password":"teja123"
+        } ]
+
+        console.log(JSONdata);
+
+        console.log(JSON.stringify(JSONdata));
+
+        document.write(JSON.stringify(JSONdata));
+
+        localStorage.setItem("data",JSON.stringify(JSONdata));
+
+    </script>
+</body>
+</html>

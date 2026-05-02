@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let apiURL = "https://api.github.com/users"; // Valid JSON API endpoint
+        fetch(apiURL)
+        .then((response) => response.json())
+        .then((data) => {
+            data.forEach((user) => {
+                console.log(user.login, user.id); // Logs each user's username
+                let div=document.createElement('div');
+                let img=document.createElement('img');
+                let orderlist=document.createElement('ol');
+                let li1=document.createElement('li');
+                let li2=document.createElement('li');
+                let li3=document.createElement('li');
+                img.src=user.avatar_url;
+                img.style.width = "100px";
+                li1.innerHTML = `Username: ${user.login}`;
+                li2.innerHTML = `ID: ${user.id}`;
+                li3.innerHTML = `View Type: ${user.user_view_type}`;
+                
+                orderlist.appendChild(li1);
+                orderlist.appendChild(li2);
+                orderlist.appendChild(li3);
+                
+                div.appendChild(img);
+                div.appendChild(orderlist);
+                div.style.border = "1px solid #ccc";
+                div.style.margin = "10px";
+                div.style.padding = "10px";
+                div.style.display = "flex";
+                div.style.alignItems = "center";
+                div.style.gap = "20px";
+                div.style.backgroundColor = "red";
+                div.style.borderRadius = "10px";
+                
+                document.body.appendChild(div);
+
+            });
+        })
+        .catch((err) => console.log(err));
+    </script>
+</body>
+</html>

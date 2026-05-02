@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //     console.log("HELLO");
+        //     alert("warning");
+
+        //     console.log("welcome");
+        //  let result=   confirm("Please check your name: Akash");
+        //  if(result){
+        //     console.log(pleasecontinue);
+        //   } else{
+        //     console.log("then correct your name");
+        //  }
+        //  console.log(result);
+        // let name=prompt("enter your name");
+        // let mail=prompt("enter your email");
+        // console.log(name);
+        // console.log(mail);
+        //addition operation
+        // let a = Number(prompt("enter the value of a"));
+        // let b = Number(prompt("enter the value of b"));
+
+        // console.log(a + b);
+        // console.log(10+true);//internal typecast
+        // console.log(10+20+"20");
+        // console.log(10-"20");
+        // console.log("20"+"20");
+
+        // console.log(Number("2022"));//external typecast
+        // console.log(parseInt("2022"))
+        // console.log(Number(true));
+        // console.log(parseInt(true))
+        setTimeout(() => {
+            console.log("HELLO")
+        }, 5000);
+        function display() {
+            let count = 0
+            let ID = setInterval(() => {
+                count++;
+                console.log("setInterval");
+                console.log("3s");
+                if(count==3){
+                    clearInterval(ID);
+                }
+
+               
+            }, 2000)
+        }
+        display()
+        
+    </script>
+</body>
+
+</html>

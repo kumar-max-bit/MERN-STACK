@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Weather App</title>
+    <!-- Google Fonts & Font Awesome for a modern UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="weather.css">
+</head>
+<body>
+    <div class="weather-container">
+        <h2 class="app-title"><i class="fas fa-cloud-sun-rain"></i> Live Weather</h2>
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Search for a city..." autocomplete="off" spellcheck="false">
+            <button id="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="weather-details" id="weather-details">
+            <h3 class="city-name" id="city-name"><i class="fas fa-map-marker-alt"></i> Location</h3>
+            <img src="" alt="Weather Icon" id="weather-icon" class="weather-icon">
+            <div class="temp" id="temp">0<span>°C</span></div>
+            <div class="condition" id="condition">Condition</div>
+            
+            <div class="extra-info">
+                <div class="info-item">
+                    <i class="fas fa-water"></i>
+                    <div>
+                        <div class="info-value" id="humidity">0%</div>
+                        <div class="info-label">Humidity</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-wind"></i>
+                    <div>
+                        <div class="info-value" id="wind">0 km/h</div>
+                        <div class="info-label">Wind Speed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="weather.js"></script>
+</body>
+</html>
