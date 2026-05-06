@@ -4,6 +4,7 @@ import Counter from './counter';
 import CounterFBC from './CounterFBC';
 import DisplyMyDetails from './DisplayMyDetails';
 import Products from './Products';
+import RegisterForm from './../RegisterForm';
 
 const App = () => {
    let details=["ravi","507"];
@@ -14,6 +15,7 @@ const App = () => {
 
   return (
     <div>
+      <RegisterForm/>
      <Nav cartCount={cartCount} />
      <Counter/>
       <CounterFBC fulldetails={details} role={Role}/> 
