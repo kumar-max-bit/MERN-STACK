@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -17,6 +16,7 @@ function Register() {
     city: "",
     state: "",
     zipCode: "",
+    userType: "user",
   });
 
   const handleChange = (e) => {
@@ -27,7 +27,6 @@ function Register() {
     e.preventDefault();
     console.log(details);
     toast.success("register successfully 😊");
-    
   };
 
   return (
@@ -80,6 +79,18 @@ function Register() {
               required
               placeholder="Password"
             />
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formGridUserType">
+            <Form.Label>User Type</Form.Label>
+            <Form.Select
+              name="userType"
+              onChange={handleChange}
+              defaultValue="user"
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </Form.Select>
           </Form.Group>
         </Row>
 
