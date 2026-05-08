@@ -1,24 +1,28 @@
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
+import { CartContext } from "../App";
 
 function NavBar() {
+  const { items } = useContext(CartContext);
   return (
     <Navbar expand="lg" id="nav-container">
       <Container>
-        <Navbar.Brand href="/home">Alpha Mart</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/home">Alpha Mart</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/register">Register</Nav.Link>
+            <Nav.Link as={Link} to="/home">Home</Nav.Link>
+            <Nav.Link as={Link} to="/register">Register</Nav.Link>
             <NavDropdown title="Products" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/products">
+              <NavDropdown.Item as={Link} to="/products">
                 View Products
               </NavDropdown.Item>
               <NavDropdown.Item href="">Edit Products</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/cart">Cart ({items.length})</NavDropdown.Item>
               <NavDropdown.Item href="">Delete Product</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="">View Users</NavDropdown.Item>
@@ -27,14 +31,14 @@ function NavBar() {
         </Navbar.Collapse>
       </Container>
 
-      <button id="login-btn" className="btn btn-primary">
-        <Link to="/login">Login</Link>
+      <Link to="/login" id="login-btn" className="btn btn-primary me-2 text-white text-decoration-none">
+        Login
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
           fill="currentColor"
-          class="bi bi-box-arrow-in-right"
+          className="bi bi-box-arrow-in-right ms-1"
           viewBox="0 0 16 16"
         >
           <path
@@ -46,7 +50,7 @@ function NavBar() {
             d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
           />
         </svg>
-      </button>
+      </Link>
     </Navbar>
   );
 }
