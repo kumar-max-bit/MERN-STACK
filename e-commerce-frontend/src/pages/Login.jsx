@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../service/CartProvider";
 
 const Login = () => {
   const [loginDetails, setLoginDetails] = useState({
@@ -10,6 +12,8 @@ const Login = () => {
     otp: "",
   });
 
+  const { setIsLogin } = useContext(CartContext);
+  const navigate = useNavigate();
   const [mailOtp, setMailOtp] = useState(null);
 
   //function to fetch input values
@@ -17,43 +21,39 @@ const Login = () => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
 
-  // form reset function
-  const handleReset = () => {
-    setLoginDetails({
-      username: "",
-      password: "",
-      otp: "",
-    });
-  };
-
   //function to generate otp and send to mail
   const generateOtp = async () => {
+    if (!loginDetails.username) {
+      toast.warn("Please enter your email first.");
+      return;
+    }
     try {
       let generatedOtp = Math.floor(Math.random() * 1000000);
-      let time = new Date();
-      let expiredTime = `${time.getHours()}:${time.getMinutes() + 15}:00`;
       setMailOtp(generatedOtp);
 
       let formData = {
         email: loginDetails.username,
         otp: generatedOtp,
-        time: expiredTime,
       };
+
+      // This sends the OTP via email.
+      // WARNING: This is NOT secure for a real application.
+      // OTP generation and verification must happen on the server.
       await emailjs.send("service_9l1dihp", "template_7bth6c8", formData, {
         publicKey: "N3xga7GAtw352Ac-q",
       });
 
-      toast.success("otp send to ur mail successfully");
+      toast.success("OTP sent to your email successfully");
     } catch (err) {
       console.log(err);
-      toast.error("failed to generate otp");
+      toast.error("Failed to generate OTP");
     }
   };
 
   //function to handle form submit
   const handleLogin = (e) => {
     e.preventDefault();
-    if (loginDetails.password === "") {
+    if (!loginDetails.password) {
       toast.warn("Password is required");
       return;
     }
@@ -61,11 +61,26 @@ const Login = () => {
       toast.warn("Please generate an OTP first.");
       return;
     }
-    if (mailOtp === Number(loginDetails.otp)) {
-      toast.success("login successful");
+    // In a real app, you would send username, password, and OTP to your backend for verification.
+    // Here, we are simulating it on the client, which is insecure.
+    if (mailOtp === Number(loginDetails.otp) && loginDetails.password) {
+      toast.success("Login successful!");
+      localStorage.setItem("token", "241sadgghs3546adDh"); // This is just a dummy token
+      setIsLogin(true);
+      setTimeout(() => {
+        navigate("/home");
+      }, 2000);
     } else {
-      toast.warn("invalid otp");
+      toast.warn("Invalid OTP or password.");
     }
+  };
+
+  const handleReset = () => {
+    setLoginDetails({
+      username: "",
+      password: "",
+      otp: "",
+    });
   };
 
   return (
@@ -118,16 +133,16 @@ const Login = () => {
         {/* button  row  */}
         <Row className="my-2">
           <Col>
-            <Button variant="primary" type="submit">
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={!loginDetails.otp}
+            >
               SignIn
             </Button>
           </Col>
           <Col>
-            <Button
-              onClick={handleReset}
-              type="reset"
-              variant="warning"
-            >
+            <Button onClick={handleReset} type="reset" variant="warning">
               Reset
             </Button>
           </Col>

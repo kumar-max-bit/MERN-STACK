@@ -61,3 +61,30 @@
   color: aliceblue;
   font-weight: bold;
 }
+ #cart-btn {
+  text-decoration: none;
+}
+
+
+
+#cart-products {
+  margin: 20px;
+  display: flex;
+@@ -107,3 +105,17 @@
+  padding: 10px;
+  border-radius: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+}
+
+#brand-name {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  background-image: linear-gradient(black, red, green);
+  color: transparent;
+  -webkit-background-clip: text;
+}

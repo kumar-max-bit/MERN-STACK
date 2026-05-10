@@ -2,8 +2,13 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>Home page</div>
+   
+       <h1 className='text-center'>
+      Home page
+      </h1>
   )
 }
+  
+
 
 export default Home;

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { CartContext } from "../App";
+import { CartContext } from "../service/CartProvider";
 
 function DumiProducts() {
   const products = [

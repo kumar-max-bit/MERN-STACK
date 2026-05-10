@@ -9,7 +9,7 @@ const LandingPage = () => {
       "Welcome to Alpha Mart, your one-stop shop for everything you need!"
     );
     const voice = window.speechSynthesis;
-    voice.rate=0.1;
+    voice.rate = 0.9; // Adjusted for a more natural speech rate
     voice.speak(greeting);
   };
 
