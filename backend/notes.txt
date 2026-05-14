@@ -1,0 +1,73 @@
+const express = require('express');
+const app= express();
+const PORT=4000;
+
+let stdDetails=[]
+let collegeDetails=[]
+app.use(express.json());// Middleware to parse JSON request bodies
+
+app.post("/add-std",(req,res)=>{
+    const newStudent={
+        stdName:req.body.name,
+        stdRollno:req.body.rollno,
+        stdBranch:req.body.branch,
+        stdSkills:req.body.skills
+    };
+    stdDetails.push(newStudent);
+    res.status(200).json({message:"Student details added successfully",newStudent});
+});
+
+app.post("/add-multipleStudents",(req,res)=>{
+    const allNewStudents=req.body.allstudents; // Expecting an array of student objects in the request body
+    stdDetails.push(...allNewStudents); // Add all students to the stdDetails array
+    res.status(200).json({message:"Multiple student details added successfully",allNewStudents});
+});
+
+app.get("/get-students",(req,res)=>{
+    res.status(200).json(stdDetails);
+});
+
+app.post("/add-college",(req,res)=>{
+    const newCollege={
+        collegeName:req.body.name,
+        collegeCode:req.body.code,
+        collegeAddress:req.body.address
+    };
+    collegeDetails.push(newCollege);
+    res.status(200).json({message:"College details added successfully",newCollege});
+});
+
+app.post("/add-multipleColleges",(req,res)=>{
+    const allNewColleges=req.body.allcolleges; // Expecting an array of college objects in the request body
+    collegeDetails.push(...allNewColleges); // Add all colleges to the collegeDetails array
+    res.status(200).json({message:"Multiple college details added successfully",allNewColleges});
+});
+
+app.get("/get-colleges",(req,res)=>{
+    res.status(200).json(collegeDetails);
+});
+
+
+
+
+app.delete("/delete-student/:rollno",(req,res)=>{
+    const rollno=req.params.rollno;
+    stdDetails=stdDetails.filter(student=>student.stdRollno!==rollno);
+    res.status(200).json({message:"Student deleted successfully"});
+});
+
+// app.get("/",(req,res)=>{
+//     res.status(200).send("Server is up and running");
+// });
+
+// app.get("/get-user",(req,res)=>{
+//     res.status(200).json({
+//         name:"John Doe",
+//         age:30,
+//         email:"john.doe@example.com"
+//     });
+// });
+
+app.listen(PORT,()=>{
+    console.log(`Server is running on port ${PORT}`);
+});
