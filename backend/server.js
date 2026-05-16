@@ -12,7 +12,9 @@ app.use(express.json());
 connection(); 
 
 const studentRouter=require("./routes/studentRouter");
+const collegeRouter=require("./routes/collegeRouter");
 app.use("/students", studentRouter);
+app.use("/colleges", collegeRouter);
 
 app.listen(PORT,() =>{
     console.log(`Server is running on port ${PORT}`);

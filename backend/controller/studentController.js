@@ -1,6 +1,6 @@
 const Students=require('../model/StudentModel');
 //add student
-const addStudent=(req,res)=>{
+const addStudent=async (req,res)=>{
   try{
      const{name,rollNo,branch,phone,email,address}=req.body;
    const newStudent={
@@ -12,10 +12,10 @@ const addStudent=(req,res)=>{
     address:address,
    };
 
-    Students.insertOne(newStudent)
+    await Students.create(newStudent);
     res.status(200).json({message:"Student added successfully"});
 
-  }catch(e){
+  }catch(err){
     res.status(500).json({message:"Error occurred while adding student"})
     console.log(err);
   }
@@ -28,4 +28,3 @@ const addStudent=(req,res)=>{
 //update only phone number
 
 module.exports=addStudent;
-
