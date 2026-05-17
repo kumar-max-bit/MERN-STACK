@@ -70,7 +70,9 @@
 #cart-products {
   margin: 20px;
   display: flex;
-@@ -107,3 +105,17 @@
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
   padding: 10px;
   border-radius: 10px;
 }

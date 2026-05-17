@@ -11,8 +11,8 @@ import LandingPage from "./pages/LandingPages";
 import CartPage from "./pages/Cards";
 import CartProvider, { CartContext } from "./service/CartProvider";
 import ErrorPage from "./pages/ErrorPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import NavBar from "./components/navBar";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import NavBar from "./Components/navBar";
 
 const AppRoutes = () => {
   const { isLogin } = useContext(CartContext);

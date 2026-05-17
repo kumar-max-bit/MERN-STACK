@@ -1,7 +1,7 @@
 import React from "react";
-import CarouselContainer from "../components/CarouselContainer";
-import DumiProducts from "../components/DumiProducts";
-import FooterComponent from "../components/FooterComponent";
+import CarouselContainer from "../Components/CarouselContainer";
+import DumiProducts from "../Components/DumiProducts";
+import FooterComponent from "../Components/FooterComponent";
 
 const LandingPage = () => {
   const handleGreeting = () => {
