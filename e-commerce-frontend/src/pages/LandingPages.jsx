@@ -2,6 +2,7 @@ import React from "react";
 import CarouselContainer from "../Components/CarouselContainer";
 import DumiProducts from "../Components/DumiProducts";
 import FooterComponent from "../Components/FooterComponent";
+import AIChatbot from "../Components/AIChatbot";
 
 const LandingPage = () => {
   const handleGreeting = () => {
@@ -20,6 +21,7 @@ const LandingPage = () => {
       <h1>Products</h1>
       <DumiProducts />
       <FooterComponent />
+      <AIChatbot />
     </div>
   );
 };

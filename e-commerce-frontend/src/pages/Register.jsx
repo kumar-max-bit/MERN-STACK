@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { toast, ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 function Register() {
   const [details, setDetails] = useState({
     name: "",
@@ -23,10 +23,20 @@ function Register() {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(details);
-    toast.success("register successfully 😊");
+    try {
+      const response = await axios.post("http://localhost:5000/user/register", details);
+      console.log(response.data);
+      toast.success("Registered successfully 😊");
+    } catch (error) {
+      console.error(error);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message || "Failed to register");
+      } else {
+        toast.error("An error occurred during registration");
+      }
+    }
   };
 
   return (

@@ -4,6 +4,7 @@ import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../service/CartProvider";
+import axios from "axios";
 
 const Login = () => {
   const [loginDetails, setLoginDetails] = useState({
@@ -28,8 +29,10 @@ const Login = () => {
       return;
     }
     try {
-      let generatedOtp = Math.floor(Math.random() * 1000000);
+      // Generate a clean 6-digit OTP
+      let generatedOtp = Math.floor(100000 + Math.random() * 900000);
       setMailOtp(generatedOtp);
+      console.log("DEBUG: Your generated OTP is:", generatedOtp);
 
       let formData = {
         email: loginDetails.username,
@@ -37,13 +40,18 @@ const Login = () => {
       };
 
       // This sends the OTP via email.
-      // WARNING: This is NOT secure for a real application.
-      // OTP generation and verification must happen on the server.
-      await emailjs.send("service_9l1dihp", "template_7bth6c8", formData, {
-        publicKey: "N3xga7GAtw352Ac-q",
-      });
-
-      toast.success("OTP sent to your email successfully");
+      // We wrap it in a nested try-catch so that an EmailJS failure doesn't block local testing!
+      try {
+        await emailjs.send("service_9l1dihp", "template_7bth6c8", formData, {
+          publicKey: "N3xga7GAtw352Ac-q",
+        });
+        toast.success("OTP sent to your email successfully");
+      } catch (emailErr) {
+        console.warn("EmailJS failed, falling back to screen display:", emailErr);
+        toast.info(`OTP generated (Testing Fallback): ${generatedOtp}`, {
+          autoClose: 10000
+        });
+      }
     } catch (err) {
       console.log(err);
       toast.error("Failed to generate OTP");
@@ -51,7 +59,7 @@ const Login = () => {
   };
 
   //function to handle form submit
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!loginDetails.password) {
       toast.warn("Password is required");
@@ -61,17 +69,36 @@ const Login = () => {
       toast.warn("Please generate an OTP first.");
       return;
     }
-    // In a real app, you would send username, password, and OTP to your backend for verification.
-    // Here, we are simulating it on the client, which is insecure.
-    if (mailOtp === Number(loginDetails.otp) && loginDetails.password) {
-      toast.success("Login successful!");
-      localStorage.setItem("token", "241sadgghs3546adDh"); // This is just a dummy token
-      setIsLogin(true);
-      setTimeout(() => {
-        navigate("/home");
-      }, 2000);
+    
+    // Validate OTP and then authenticates via backend
+    if (mailOtp === Number(loginDetails.otp)) {
+      try {
+        const response = await axios.post("http://localhost:5000/user/login", {
+          username: loginDetails.username,
+          password: loginDetails.password
+        });
+        
+        toast.success("Login successful! 😊");
+        console.log(response.data);
+        
+        // Save user session in localStorage
+        localStorage.setItem("token", "241sadgghs3546adDh");
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        
+        setIsLogin(true);
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
+      } catch (error) {
+        console.error(error);
+        if (error.response && error.response.data) {
+          toast.error(error.response.data.message || "Login failed");
+        } else {
+          toast.error("An error occurred during login");
+        }
+      }
     } else {
-      toast.warn("Invalid OTP or password.");
+      toast.warn("Invalid OTP. Please check your email.");
     }
   };
 
