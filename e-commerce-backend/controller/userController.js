@@ -67,4 +67,29 @@ const login= async(req,res)=>{
 };
         
 
-module.exports= {register, login};
+//forgotPassword handler
+const forgotPassword = async (req, res) => {
+    console.log("--- FORGOT PASSWORD ATTEMPT ---");
+    console.log("Received data:", req.body);
+    try {
+        const { email, password } = req.body;
+        const foundUser = await Users.findOne({ email });
+        
+        if (!foundUser) {
+            console.log("Forgot password failed: User not found with email", email);
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        foundUser.password = hashedPassword;
+        await foundUser.save();
+
+        console.log("Password updated successfully for", email);
+        res.status(200).json({ message: "Password updated successfully" });
+    } catch (error) {
+        console.error("Forgot password database error:", error);
+        res.status(500).json({ message: "Failed to reset password", err: error });
+    }
+};
+
+module.exports = { register, login, forgotPassword };

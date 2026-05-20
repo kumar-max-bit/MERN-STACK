@@ -13,6 +13,7 @@ import CartProvider, { CartContext } from "./service/CartProvider";
 import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import NavBar from "./Components/navBar";
+import ForgetPassword from "./pages/ForgetPassword";
 
 const AppRoutes = () => {
   const { isLogin } = useContext(CartContext);
@@ -24,6 +25,7 @@ const AppRoutes = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgetPassword />} />
 
         <Route
           path="/home"
