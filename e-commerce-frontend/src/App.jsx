@@ -1,79 +1,71 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useContext } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Dashboard from "./pages/Dashboard";
+import NavBar from "./components/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/style.css";
-import LandingPage from "./pages/LandingPages";
-import CartPage from "./pages/Cards";
-import CartProvider, { CartContext } from "./service/CartProvider";
+import LandingPage from "./pages/LandingPage";
+import CartPage from "./pages/CartPage";
+import CartProvider from "./service/CartProvider";
 import ErrorPage from "./pages/ErrorPage";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import NavBar from "./Components/navBar";
-import ForgetPassword from "./pages/ForgetPassword";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ViewUsers from "./pages/ViewUsers";
 
-const AppRoutes = () => {
-  const { isLogin } = useContext(CartContext);
+const App = () => {
+
 
   return (
-    <>
-      <NavBar />
+    <BrowserRouter>
+      <CartProvider>
+        <NavBar />
+        <Routes>
+          <Route path="" element={<LandingPage />} />
+          <Route
+            path="cart"
+            element={
+              <ProtectedRoute authenticated={true}>
+                <CartPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </CartProvider>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgetPassword />} />
-
+        <Route path="register" element={<Register />} />
         <Route
           path="/home"
           element={
-            <ProtectedRoute authenticated={isLogin}>
+            <ProtectedRoute authenticated={true}>
               <Home />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/products"
+          path="products"
           element={
-            <ProtectedRoute authenticated={isLogin}>
+            <ProtectedRoute authenticated={true}>
               <Products />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/dashboard"
+          path="dashboard"
           element={
-            <ProtectedRoute authenticated={isLogin}>
+            <ProtectedRoute authenticated={true}>
               <Dashboard />
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute authenticated={isLogin}>
-              <CartPage />
-            </ProtectedRoute>
-          }
-        />
-
         <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </>
-  );
-};
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <CartProvider>
-        <AppRoutes />
-      </CartProvider>
+        <Route path="view-users" element={<ViewUsers/>}/>
+      </Routes>
     </BrowserRouter>
   );
 };
-
 export default App;

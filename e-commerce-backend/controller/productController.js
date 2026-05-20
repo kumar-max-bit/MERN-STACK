@@ -1,81 +1,102 @@
-const ProductModel = require("../model/ProductModel");
+const Products = require("../model/ProductModel");
 
-const dummyProducts = [
-  {
-    id: 1,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzEHRe6qwUg__61qgldYKbyvMS6yhDdyTHLQ&s",
-    title: "Clothes",
-    description: "Comfortable and stylish clothing for every occasion.",
-  },
-  {
-    id: 2,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYFHqubsxgEDlbHQy-DqJ7gpEX8Honnsv9cQ&s",
-    title: "Laptops",
-    description: "High-performance laptops for work, gaming, and everyday use.",
-  },
-  {
-    id: 3,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu40lyAEF3ePk1CS3swYqngcJIBufVRo1ouA&s",
-    title: "Mobiles",
-    description: "Latest smartphones with advanced features and great cameras.",
-  },
-  {
-    id: 4,
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcEnHaxGDq08atEEjHNYlHsfEeHXzVw2zeOQ&s",
-    title: "Shoes",
-    description: "Durable and trendy footwear to keep you moving in style.",
-  },
-  {
-    id: 5,
-    imageSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-    title: "Watches",
-    description: "Elegant timepieces that perfectly complement your outfit.",
-  },
-  {
-    id: 6,
-    imageSrc: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-    title: "Headphones",
-    description: "Noise-cancelling headphones for an immersive audio experience.",
-  },
-  {
-    id: 7,
-    imageSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-    title: "Bags",
-    description: "Spacious and durable bags for travel, school, or work.",
-  },
-  {
-    id: 8,
-    imageSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-    title: "Sunglasses",
-    description: "Protect your eyes with these stylish and polarized sunglasses.",
+// add product
+const addProducts = async (req, res) => {
+  try {
+    console.log(req.body);
+    const newProduct = {
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      ratings: req.body.ratings,
+      imageSrc: req.body.imageSrc,
+      about: req.body.about,
+      reviews: req.body.reviews,
+    };
+    await Products.insertOne(newProduct);
+    res.status(201).json({ message: "Product Added" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed add Product", error: err });
   }
-];
+};
 
+//edit productDetails
+const editProducts = async (req, res) => {
+  try {
+    const updatedProduct = await Products.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true },
+    );
+    res.status(200).json({ message: "updated successfully", updatedProduct });
+  } catch (error) {
+    res.status(500).json({ message: "failed to update details" });
+  }
+};
+
+//delete products
+const deleteProduct = async (req, res) => {
+  try {
+    const deletedProduct = Products.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Product Deleted", deleteProduct });
+  } catch (error) {
+    res.status(500).json({ message: "failed to Delete", deleteProduct });
+  }
+};
+
+//get product based on ID
+const getProductBasedOnId = async (req, res) => {
+  try {
+    const foundProduct = await Products.findById(req.params.id);
+    res.status(200).json({ foundProduct });
+  } catch (error) {
+    res.status(500).json({ message: "failed get Product" });
+  }
+};
+
+//get all products
 const getAllProducts = async (req, res) => {
-    try {
-        let products = await ProductModel.find({});
-        
-        // If collection is empty, seed it automatically
-        if (products.length === 0) {
-            console.log("Seeding dummy products into MongoDB...");
-            await ProductModel.insertMany(dummyProducts);
-            products = await ProductModel.find({});
-        }
-        
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500).json({ message: "Failed to get products", err: error });
-    }
+  try {
+    const allProducts = Products.find();
+    res.status(200).json({ allProducts });
+  } catch (error) {
+    res.status(500).json({ message: "failed get all Product" });
+  }
 };
 
-const createProduct = async (req, res) => {
-    try {
-        const { id, imageSrc, title, description } = req.body;
-        const newProduct = await ProductModel.create({ id, imageSrc, title, description });
-        res.status(201).json({ message: "Product created successfully", product: newProduct });
-    } catch (error) {
-        res.status(500).json({ message: "Failed to create product", err: error });
-    }
+//filter products based on price
+const filterProductsBasedOnPrice = async (req, res) => {
+  try {
+    const { highestPrice, lowestPrice } = req.body;
+    const filteredProducts = await Products.find({
+      price: { $gte: lowestPrice },
+      price: { $lte: highestPrice },
+    });
+    res.status(200).json({ filteredProducts });
+  } catch (error) {
+    res.status(500).json({ message: "failed to filter", error });
+  }
 };
 
-module.exports = { getAllProducts, createProduct };
+//sort products based on price
+const sortProductsBasedOnPrices = async (req, res) => {
+  try {
+    const sortOrder = Number(req.params.order);
+    const sortedProducts = Products.find().sort({ price: sortOrder });
+    res.status(200).json({ sortedProducts });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "failed to sort, internal server error", error });
+  }
+};
+
+module.exports = {
+  addProducts,
+  editProducts,
+  deleteProduct,
+  getProductBasedOnId,
+  filterProductsBasedOnPrice,
+  sortProductsBasedOnPrices,
+  getAllProducts
+};

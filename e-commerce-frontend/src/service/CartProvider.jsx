@@ -1,42 +1,39 @@
 /* eslint-disable react-hooks/set-state-in-render */
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useState, useEffect } from "react";
 
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useMemo, useState } from "react";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [items, setItems] = useState([]);
-  const [isLogin, setIsLogin] = useState(false);
-
   const addToCart = (product) => {
-    const isPresent = items.some((item) => item.id === product.id);
-    if (!isPresent) {
-      setItems((prevItems) => [...prevItems, product]);
+    const cartProduct = items.some((item) => item.id == product.id);
+    if (!cartProduct) {
+      setItems([...items, product]);
     }
   };
 
+  const [isLogin, setIsLogin] = useState(true);
+  
   //function to get stored token
   const getToken = () => {
-    // Check if a token exists in localStorage
-    const token = !!localStorage.getItem("token");
+    const token = localStorage.getItem("token")?true:false;
     setIsLogin(token);
   };
 
-  useEffect(() => {
+  useMemo(() => {
     getToken();
   }, []);
 
-  const removeFromCart = (productToRemove) => {
-    const afterRemovedProducts = items.filter(
-      (item) => item.id !== productToRemove.id
-    );
-    setItems(afterRemovedProducts);
-  };
+
+
+  const removeToCart=(product)=>{
+       const afterRemovedProducts=items.filter((item)=>item.title!=product.title);
+       setItems(afterRemovedProducts);
+  }
 
   return (
-    <CartContext.Provider
-      value={{ items, addToCart, removeFromCart, isLogin, setIsLogin }}
-    >
+    <CartContext.Provider value={{ items, addToCart,removeToCart,isLogin, setIsLogin }}>
       {children}
     </CartContext.Provider>
   );

@@ -1,9 +1,14 @@
-import { Navigate } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, authenticated }) => {
-  if (!authenticated) {
-    // user is not authenticated, redirect to login page
-    return <Navigate to="/login" />;
+  const navigate = useNavigate();
+  if (authenticated==""||authenticated==null) {
+    useEffect(() => {
+      navigate("/login")
+    }, []);
   }
   return children;
 };
