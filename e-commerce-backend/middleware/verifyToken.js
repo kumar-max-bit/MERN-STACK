@@ -1,10 +1,19 @@
 const jwt = require("jsonwebtoken");
-const verifyToken = async (req, res, next) => {
+const verifyToken = (req, res, next) => {
   try {
-    const Authentication = req.headers["authorization"];
-    const token = Authentication.split(" ")[1];
-    const decoded = await jwt.verify(token, process.env.SECRETE_KEY);
-    req.body.user = decoded;
+    const authHeader = req.headers.authorization || req.headers["authorization"];
+    if (!authHeader) {
+      return res.status(401).json({ message: "No Authorization header provided" });
+    }
+
+    const tokenParts = authHeader.trim().split(/\s+/);
+    if (tokenParts.length < 2 || tokenParts[0].toLowerCase() !== "bearer") {
+      return res.status(401).json({ message: "Malformed Authorization token" });
+    }
+
+    const token = tokenParts[1];
+    const decoded = jwt.verify(token, process.env.SECRETE_KEY);
+    req.user = decoded;
     console.log("Verified");
 
     return next();
@@ -18,6 +27,7 @@ const verifyToken = async (req, res, next) => {
     if (err instanceof jwt.JsonWebTokenError) {
       return res.status(401).json({ message: "invalid token" });
     }
+    return res.status(401).json({ message: "Authentication failed", error: err.message });
   }
 };
 module.exports = verifyToken;

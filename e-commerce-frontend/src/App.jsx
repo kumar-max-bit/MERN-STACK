@@ -23,48 +23,45 @@ const App = () => {
       <CartProvider>
         <NavBar />
         <Routes>
-          <Route path="" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route
-            path="cart"
+            path="/cart"
             element={
               <ProtectedRoute authenticated={true}>
                 <CartPage />
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute authenticated={true}>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute authenticated={true}>
+                <Products />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute authenticated={true}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/view-users" element={<ViewUsers/>}/>
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </CartProvider>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute authenticated={true}>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="products"
-          element={
-            <ProtectedRoute authenticated={true}>
-              <Products />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="dashboard"
-          element={
-            <ProtectedRoute authenticated={true}>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<ErrorPage />} />
-
-        <Route path="view-users" element={<ViewUsers/>}/>
-      </Routes>
     </BrowserRouter>
   );
 };

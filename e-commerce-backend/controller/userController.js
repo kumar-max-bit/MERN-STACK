@@ -29,10 +29,10 @@ const register = async (req, res) => {
       state: state,
       zipCode: zipCode,
     };
-    await Users.insertOne(newUser);
-    res.status(200).json({ message: "Register Successfully" });
+    const createdUser = await Users.create(newUser);
+    res.status(200).json({ message: "Register Successfully", createdUser });
   } catch (error) {
-    res.status(500).json({ message: "failed to register", err: error });
+    res.status(500).json({ message: "failed to register", err: error.message });
   }
 };
 
@@ -40,23 +40,28 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log("Login attempt:", username);
     const foundUser = await Users.findOne({ email: username });
+    if (!foundUser) {
+      return res.status(404).json({ message: "username not found" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, foundUser.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "invalid password" });
+    }
+
     //generate JWT new token
     const token = await jwt.sign(
-      {id:foundUser._id, role: foundUser.userType, email: username },
+      { id: foundUser._id, role: foundUser.userType, email: username },
       process.env.SECRETE_KEY,
       { notBefore: "10s", expiresIn: "20M" },
     );
 
-    // console.log("generated Token:", token);
-    const hashedPassword = await bcrypt.compare(password, foundUser.password);
-    if (!hashedPassword) {
-      res.status(401).json({ message: "invalid password" });
-    }
-  
-    res.status(202).json({ message: "login successful", token });
+    return res.status(202).json({ message: "login successful", token });
   } catch (error) {
-    res.status(500).json({ message: "username not found" });
+    console.error("Login error:", error);
+    return res.status(500).json({ message: "internal server error", error: error.message });
   }
 };
 // getUser
@@ -84,19 +89,19 @@ const updateProfile = async (req, res) => {
 
 // get Users
 const getAllUsers = async (req, res) => {
-  // try {
-  const allUsers = await Users.find();
-  res.status(200).json({ allUsers });
-  // } catch (error) {
-  res.status(500).json({ message: "failed to get users", err: error });
-  // }
+  try {
+    const allUsers = await Users.find();
+    res.status(200).json({ allUsers });
+  } catch (error) {
+    res.status(500).json({ message: "failed to get users", err: error.message });
+  }
 };
 
 //forget password
 const forgetPassword = async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   try {
-    const updatedUser = Users.findByIdAndUpdate(
+    const updatedUser = await Users.findByIdAndUpdate(
       req.params.id,
       { password: hashedPassword },
       { new: true },
