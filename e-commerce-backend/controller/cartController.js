@@ -53,7 +53,7 @@ const getCartDetails = async (req, res) => {
         message: "Cart is empty",
         cart: { userId, productsIds: [], totalPrice: 0 },
       });
-    }z
+    }
 
     return res.status(200).json({ cart });
   } catch (error) {
