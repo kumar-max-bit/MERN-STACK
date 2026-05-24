@@ -78,7 +78,7 @@ const Products = () => {
             
             {/* Price Filter Form */}
             <Form onSubmit={handleFilterSubmit} className="mb-4">
-              <Form.Label className="fw-semibold">Price Range ($)</Form.Label>
+              <Form.Label className="fw-semibold">Price Range (₹)</Form.Label>
               <Row className="g-2 mb-3">
                 <Col>
                   <Form.Control
@@ -160,7 +160,7 @@ const Products = () => {
                           {product.description}
                         </Card.Text>
                         <div className="d-flex justify-content-between align-items-center mt-3">
-                          <span className="fw-bold text-success fs-5">${product.price}</span>
+                          <span className="fw-bold text-success fs-5">₹{product.price}</span>
                           <span className="text-warning">★ {product.ratings || "N/A"}</span>
                         </div>
                         <div className="mt-3 d-flex gap-2">

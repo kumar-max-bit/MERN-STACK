@@ -41,7 +41,7 @@ function DumiProducts() {
                   {item.description}
                 </Card.Text>
                 <div className="d-flex justify-content-between align-items-center mt-3">
-                  <span className="fw-bold text-success fs-5">${item.price}</span>
+                  <span className="fw-bold text-success fs-5">₹{item.price}</span>
                   <span className="text-warning">★ {item.ratings || "N/A"}</span>
                 </div>
                 <div className="mt-3 d-flex gap-2">

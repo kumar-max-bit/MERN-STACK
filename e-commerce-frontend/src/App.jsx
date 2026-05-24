@@ -14,6 +14,7 @@ import CartProvider from "./service/CartProvider";
 import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ViewUsers from "./pages/ViewUsers";
+import AIChatbot from "./components/AIChatbot";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
     <BrowserRouter>
       <CartProvider>
         <NavBar />
+        <AIChatbot />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />

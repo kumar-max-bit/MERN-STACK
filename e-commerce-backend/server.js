@@ -6,6 +6,7 @@ const UserRouter=require("./routes/userRouter");
 const prompt=require("./routes/promptRouter");
 const ProductRouter=require("./routes/productRouter")
 const CartRouter=require("./routes/cartRouter")
+const OrderRouter=require("./routes/orderRouter")
 const cors=require("cors");
 env.config();
 const PORT=process.env.PORT
@@ -16,6 +17,7 @@ app.use("/ai",prompt)
 app.use("/products",ProductRouter)
 
 app.use("/cart",CartRouter);
+app.use("/orders",OrderRouter);
 
 connection()
 app.listen(PORT,()=>{
